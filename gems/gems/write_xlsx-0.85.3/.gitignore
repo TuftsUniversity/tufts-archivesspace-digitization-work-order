@@ -1,0 +1,41 @@
+TAGS
+*.gem
+.bundle
+.config
+.yardoc
+Gemfile.lock
+InstalledFiles
+_site
+_yardoc
+coverage
+doc/
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+work
+
+# For MacOS:
+#
+.DS_Store
+
+# For TextMate
+*.tmproj
+tmtags
+
+# For emacs:
+*~
+\#*
+.\#*
+
+# For vim:
+*.swp
+
+# For redcar:
+.redcar
+
+# For rubinius:
+*.rbc
