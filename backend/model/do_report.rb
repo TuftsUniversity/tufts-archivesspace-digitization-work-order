@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'id_generators/generator_interface'
+require 'json'
 
 class DOReport
 
@@ -229,11 +230,9 @@ class DOReport
   def get_restriction_notes(ids)
 	restriction_notes = {}
 	DB.open do |db|
-	  db[:rights_restriction]
-		.join(:note, :note__archival_object_id => :rights_restriction__archival_object_id)
-		.where(:rights_restriction__archival_object_id => ids)
-		.select(Sequel.as(:rights_restriction__archival_object_id, :archival_object_id),
-				Sequel.as(:rights_restriction__restriction_note_type, :restriction_note_type),
+	  db[:note]
+		.where(:note__archival_object_id => ids)
+		.select(Sequel.as(:note__archival_object_id, :archival_object_id),
 				Sequel.as(:note__notes, :notes))
 		.each do |restriction_note|
 			restriction_notes[restriction_note[:archival_object_id]] ||= []
@@ -424,7 +423,7 @@ class DOReport
 	return return_string
   end
   
-  def self.print_restriction_notes(restriction_notes)
+def self.print_restriction_notes(restriction_notes)
 	return_array = Array.new
 	
 	unless restriction_notes.nil?
@@ -440,10 +439,10 @@ class DOReport
 				
 				#return_array << notes
 				
-				if notes[:type] == "accessrestrict" or notes[:type] == "userestrict"
 				
-
-					return_array << "#{notes[:type]}: "
+				restriction_type = notes[:type]
+				if restriction_type == "accessrestrict" || restriction_type == "userestrict"
+					return_array << "#{restriction_type}: "
 					
 					subnotes = notes[:subnotes]
 					
@@ -452,12 +451,12 @@ class DOReport
 					
 					subnotes.each do |subnote|
 						unless subnote[:content].nil?
-							content = subnote[:content]
-							return_array << "#{content}"
-						
+						  content = subnote[:content]
+						  return_array << "#{content}"
+
 						end
 						
-					
+
 					end
 				end
 
