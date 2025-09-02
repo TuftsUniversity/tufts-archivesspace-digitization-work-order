@@ -1,18 +1,18 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
-    rubyzip (1.2.2)
-    write_xlsx (0.85.3)
+    rubyzip (3.0.2)
+    write_xlsx (1.01.0)
       rubyzip (>= 1.0.0)
       zip-zip
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
 
 PLATFORMS
-  java
+  universal-java-11
 
 DEPENDENCIES
-  write_xlsx (= 0.85.3)
+  write_xlsx (= 1.01.0)
 
 BUNDLED WITH
-   1.16.1
+   2.5.15
